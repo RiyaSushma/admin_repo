@@ -14,7 +14,7 @@ const Login = () => {
 
     try {
       // Send POST request to backend with email and password for admin login
-      const response = await axios.post('http://localhost:5000/admin/login', { email, password });
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/admin/login`, { email, password });
       
       if (response.status === 200) {
         // If login is successful, redirect to the dashboard page

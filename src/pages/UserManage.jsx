@@ -20,7 +20,7 @@ const UserManage = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/users'); // Make sure the backend is running on port 5000 or update the URL accordingly
+      const response = await axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/users`); // Make sure the backend is running on port 5000 or update the URL accordingly
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -35,11 +35,11 @@ const UserManage = () => {
     try {
       if (editingUser) {
         // Update existing user
-        await axios.put(`http://localhost:5000/users/${editingUser.userid}`, newUser);
+        await axios.put(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/users/${editingUser.userid}`, newUser);
         setUsers(users.map((user) => (user.userid === editingUser.userid ? { ...user, ...newUser } : user)));
       } else {
         // Create new user
-        const response = await axios.post('http://localhost:5000/users', newUser);
+        const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/users`, newUser);
         setUsers([...users, response.data]);
       }
       resetForm();
@@ -60,7 +60,7 @@ const UserManage = () => {
   // Handle deleting a user
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/users/${id}`);
+      await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/users/${id}`);
       setUsers(users.filter((user) => user.userid !== id));
     } catch (error) {
       console.error('Error deleting user:', error);

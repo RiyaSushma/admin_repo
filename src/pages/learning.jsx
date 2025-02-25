@@ -13,7 +13,7 @@ const Learning = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [areaToDelete, setAreaToDelete] = useState(null);
 
-  const API_URL = "http://localhost:5000/learning-areas"; // Base URL
+  const API_URL = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/learning-areas`; // Base URL
 
   // Fetch learning areas from backend
   const fetchLearningAreas = async () => {

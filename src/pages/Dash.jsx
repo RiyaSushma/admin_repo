@@ -28,7 +28,7 @@ function Dash() {
     // Fetch data from backend when the component mounts
     useEffect(() => {
         // Fetch users data
-        axios.get('http://localhost:5000/users')
+        axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/users`)
             .then(response => {
                 setUsers(response.data);
                 setSummary(prevSummary => ({
@@ -39,7 +39,7 @@ function Dash() {
             .catch(error => console.error('Error fetching users:', error));
 
         // Fetch courses data
-        axios.get('http://localhost:5000/courses')
+        axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/courses`)
             .then(response => {
                 setCourses(response.data);
                 setSummary(prevSummary => ({

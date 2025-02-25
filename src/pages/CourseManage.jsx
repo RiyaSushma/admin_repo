@@ -24,8 +24,8 @@ function CourseManage() {
 
         // Fetch courses and learning areas
         const [coursesResponse, learningAreasResponse] = await Promise.all([
-          axios.get("http://localhost:5000/courses"),
-          axios.get("http://localhost:5000/learning-areas")
+          axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/courses`),
+          axios.get(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/learning-areas`)
         ]);
 
         // Ensure courses have learning_areas property
@@ -60,7 +60,7 @@ function CourseManage() {
         learningAreaIds,
       };
 
-      const response = await axios.post("http://localhost:5000/courses", requestBody);
+      const response = await axios.post(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/courses`, requestBody);
 
       // Add new course with empty learning_areas if not present
       setCourses([...courses, {
@@ -81,7 +81,7 @@ function CourseManage() {
 
   const deleteCourse = async (courseId) => {
     try {
-      await axios.delete(`http://localhost:5000/courses/${courseId}`);
+      await axios.delete(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/courses/${courseId}`);
       setCourses(courses.filter((course) => course.courseId !== courseId));
     } catch (err) {
       alert(`Error deleting course: ${err.response?.data?.message || err.message}`);
