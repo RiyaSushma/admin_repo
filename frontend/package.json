@@ -5,7 +5,10 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "client": "npm run dev --prefix frontend",
+    "server": "cd backend && node server.js",
     "build": "vite build",
+    "start": "concurrently \"npm run client\" \"npm run server\"", 
     "lint": "eslint .",
     "preview": "vite preview",
     "install-all": "npm install && npm install --prefix src/backend"

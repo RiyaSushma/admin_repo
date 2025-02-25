@@ -54,16 +54,16 @@ app.post('/admin/login', async (req, res) => {
 
     console.log(admin);
 
-    // const isPasswordValid = await bcrypt.compare(password, admin.password);
-    // if (!isPasswordValid) {
-    //   console.log("Password mismatch.");
-    //   return res.status(401).json({ error: 'Invalid email or password' });
-    // } 
-
-    if (password !== admin.password) {
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
+    if (!isPasswordValid) {
       console.log("Password mismatch.");
       return res.status(401).json({ error: 'Invalid email or password' });
-    }
+    } 
+
+    // if (password !== admin.password) {
+    //   console.log("Password mismatch.");
+    //   return res.status(401).json({ error: 'Invalid email or password' });
+    // }
 
     console.log("Login successful:", admin.email);
     res.status(200).json({
