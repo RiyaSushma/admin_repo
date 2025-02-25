@@ -9,11 +9,7 @@ require('dotenv').config();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors({
-  origin: true,
-  methods: "GET,POST,PUT,DELETE",
-  credentials: true
-}));
+app.use(cors());
 
 // MySQL connection pool
 const pool = mysql.createPool({
@@ -55,6 +51,12 @@ app.post('/admin/login', async (req, res) => {
     }
 
     const admin = adminRows[0];
+    const isPasswordValid = await bcrypt.compare(password, admin.password);
+    if (!isPasswordValid) {
+      console.log("Password mismatch.");
+      return res.status(401).json({ error: 'Invalid email or password' });
+    }
+
     if (password !== admin.password) {
       console.log("Password mismatch.");
       return res.status(401).json({ error: 'Invalid email or password' });
